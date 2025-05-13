@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plant Identifier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-light: #81C784;
+      --primary-dark: #388E3C;
+      --secondary: #FFC107;
+      --text-dark: #263238;
+      --text-light: #607D8B;
+      --white: #FFFFFF;
+      --light-bg: #F5F5F5;
+      --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 2rem;
+      --radius: 12px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-lg);
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    h1 {
+      color: var(--primary-dark);
+      margin-bottom: var(--spacing-sm);
+      font-size: 2.5rem;
+    }
+    
+    .subtitle {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+    
+    .plant-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .plant-hero {
+      padding: var(--spacing-lg);
+      text-align: center;
+      background-color: var(--primary-light);
+      color: var(--white);
+    }
+    
+    .plant-image {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--white);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .plant-name {
+      font-size: 1.8rem;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .plant-scientific {
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-bottom: var(--spacing-md);
+      opacity: 0.9;
+    }
+    
+    .plant-lifetime {
+      display: inline-block;
+      background-color: var(--primary-dark);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .plant-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+    }
+    
+    .detail-card {
+      background-color: var(--light-bg);
+      border-radius: var(--radius);
+      padding: var(--spacing-md);
+      box-shadow: var(--card-shadow);
+    }
+    
+    .detail-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .detail-icon {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-right: var(--spacing-sm);
+    }
+    
+    .detail-title {
+      color: var(--primary-dark);
+      font-size: 1.2rem;
+    }
+    
+    .progress-container {
+      margin-top: var(--spacing-md);
+    }
+    
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background-color: var(--white);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    
+    .care-tips {
+      padding: var(--spacing-md);
+      border-top: 1px solid var(--light-bg);
+    }
+    
+    .tips-title {
+      color: var(--primary-dark);
+      margin-bottom: var(--spacing-md);
+      font-size: 1.5rem;
+    }
+    
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-md);
+    }
+    
+    .tip-item {
+      display: flex;
+      align-items: flex-start;
+      background-color: var(--light-bg);
+      padding: var(--spacing-md);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+    }
+    
+    .tip-icon {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-right: var(--spacing-sm);
+    }
+    
+    .cost-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      background-color: var(--primary-dark);
+      color: var(--white);
+    }
+    
+    .cost-item {
+      text-align: center;
+    }
+    
+    .cost-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .cost-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* Additional styles for new features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      border-top: 1px solid var(--light-bg);
+    }
+    
+    .feature-card {
+      background-color: var(--light-bg);
+      border-radius: var(--radius);
+      padding: var(--spacing-md);
+      box-shadow: var(--card-shadow);
+    }
+    
+    .feature-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .feature-icon {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-right: var(--spacing-sm);
+    }
+    
+    .feature-title {
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+    }
+    
+    .feature-content {
+      color: var(--text-dark);
+    }
+
+    button {
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+
+    button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: var(--spacing-md);
+    }
+
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid var(--primary);
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Plant Identifier</h1>
+      <p class="subtitle">Upload a leaf image to get plant details</p>
+    </header>
+
+    <!-- Upload Section -->
+    <div class="plant-card">
+      <div class="plant-hero">
+        <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)" hidden />
+        <label for="imageInput">
+          <img id="preview" src="/api/placeholder/200/200" class="plant-image" alt="Upload preview" style="cursor: pointer;" />
+        </label>
+        <button onclick="predictPlant()">Identify Plant</button>
+        <div class="loading" id="loadingSpinner">
+          <div class="spinner"></div>
+          <p>Analyzing plant...</p>
+        </div>
+        <h2 id="plantName" class="plant-name">Plant Name</h2>
+        <p id="scientificName" class="plant-scientific">Scientific Name</p>
+        <div class="plant-lifetime">
+          <span id="lifetime">Lifetime: --</span>
+        </div>
+      </div>
+
+      <div class="plant-details">
+        <div class="detail-card">
+          <div class="detail-header">
+            <i class="fas fa-tint detail-icon"></i>
+            <h3 class="detail-title">Water Requirements</h3>
+          </div>
+          <p id="water">--</p>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Water Needs</span>
+              <span id="waterLevel">--</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%" id="waterProgress"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-header">
+            <i class="fas fa-seedling detail-icon"></i>
+            <h3 class="detail-title">Soil Type</h3>
+          </div>
+          <p id="soil">--</p>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Soil Moisture</span>
+              <span id="soilLevel">--</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%" id="soilProgress"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-header">
+            <i class="fas fa-sun detail-icon"></i>
+            <h3 class="detail-title">Light Requirements</h3>
+          </div>
+          <p id="light">--</p>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Light Needs</span>
+              <span id="lightLevel">--</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%" id="lightProgress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Features Section -->
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-header">
+            <i class="fas fa-temperature-high feature-icon"></i>
+            <h3 class="feature-title">Temperature</h3>
+          </div>
+          <p id="temperature" class="feature-content">--</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-header">
+            <i class="fas fa-calendar-alt feature-icon"></i>
+            <h3 class="feature-title">Best Season to Plant</h3>
+          </div>
+          <p id="season" class="feature-content">--</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-header">
+            <i class="fas fa-leaf feature-icon"></i>
+            <h3 class="feature-title">Edible Information</h3>
+          </div>
+          <p id="edible" class="feature-content">--</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-header">
+            <i class="fas fa-industry feature-icon"></i>
+            <h3 class="feature-title">Use Cases</h3>
+          </div>
+          <p id="useCase" class="feature-content">--</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-header">
+            <i class="fas fa-map-marker-alt feature-icon"></i>
+            <h3 class="feature-title">Commonly Grown Regions</h3>
+          </div>
+          <p id="regions" class="feature-content">--</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-header">
+            <i class="fas fa-seedling feature-icon"></i>
+            <h3 class="feature-title">Propagation Method</h3>
+          </div>
+          <p id="propagation" class="feature-content">--</p>
+        </div>
+      </div>
+
+      <div class="care-tips">
+        <h3 class="tips-title">Care Tips</h3>
+        <div class="tips-grid" id="tips">
+          <!-- Dynamic tips will go here -->
+        </div>
+      </div>
+
+      <div class="cost-summary">
+        <div class="cost-item">
+          <div class="cost-value" id="maintenance">--</div>
+          <div class="cost-label">Monthly Maintenance (₹)</div>
+        </div>
+        <div class="cost-item">
+          <div class="cost-value" id="fertilizer">--</div>
+          <div class="cost-label">Fertilizers/Month (₹)</div>
+        </div>
+        <div class="cost-item">
+          <div class="cost-value" id="pesticide">--</div>
+          <div class="cost-label">Pesticides/Month (₹)</div>
+        </div>
+        <div class="cost-item">
+          <div class="cost-value" id="life">--</div>
+          <div class="cost-label">Lifetime (₹)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        document.getElementById("preview").src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function predictPlant() {
+      // Show loading spinner
+      document.getElementById("loadingSpinner").style.display = "block";
+      
+      // Get the uploaded image
+      const fileInput = document.getElementById("imageInput");
+      if (!fileInput.files[0]) {
+        alert("Please upload an image first!");
+        document.getElementById("loadingSpinner").style.display = "none";
+        return;
+      }
+      
+      // Create form data for sending to server
+      const formData = new FormData();
+      formData.append("image", fileInput.files[0]);
+      
+      // In a real implementation, you would send this to your Flask backend
+      // For demonstration, we'll simulate a response with dummy data
+      setTimeout(() => {
+        document.getElementById("loadingSpinner").style.display = "none";
+      }, 1500);
+      
+      fetch('/predict', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        updateUI(data);
+        document.getElementById("loadingSpinner").style.display = "none";
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("Error identifying plant. Please try again.");
+        document.getElementById("loadingSpinner").style.display = "none";
+      });
+    }
+    
+    function simulateResponse() {
+      // Simulated plant data - replace this with actual data from your backend
+      const plantData = {
+        common_name: "Snake Plant",
+        scientific_name: "Sansevieria trifasciata",
+        lifetime: "5-10 years",
+        water: {
+          description: "Low water requirements. Water only when soil is completely dry.",
+          level: "Low",
+          percentage: 30
+        },
+        soil: {
+          description: "Well-draining soil, preferably cactus or succulent mix.",
+          level: "Medium-dry",
+          percentage: 40
+        },
+        light: {
+          description: "Tolerates low light but thrives in bright indirect light.",
+          level: "Medium",
+          percentage: 60
+        },
+        temperature: "18-27°C (65-80°F)",
+        season: "Spring or early Summer",
+        edible: "No - All parts are mildly toxic if ingested",
+        use_case: "Air purifier, ornamental indoor plant, feng shui",
+        regions: "West Africa, particularly Nigeria and Congo",
+        propagation: "Division or leaf cuttings",
+        tips: [
+          { icon: "fa-tint", text: "Allow soil to dry completely between waterings" },
+          { icon: "fa-sun", text: "Can tolerate low light but grows faster in bright light" },
+          { icon: "fa-temperature-low", text: "Keep away from cold drafts and temperatures below 10°C (50°F)" },
+          { icon: "fa-seedling", text: "Repot every 2-3 years or when root-bound" }
+        ],
+        costs: {
+          maintenance: "₹500",
+          fertilizer: "₹205",
+          pesticide: "₹115",
+          life: "10 yrs"
+        }
+      };
+      
+      updateUI(plantData);
+    }
+    
+    function updateUI(data) {
+      // Update plant identification
+      document.getElementById("plantName").textContent = data.common_name;
+      document.getElementById("scientificName").textContent = data.scientific_name;
+      document.getElementById("lifetime").textContent = `Lifetime: ${data.lifetime}`;
+
+      // Update requirements
+      document.getElementById("water").textContent = data.water.description;
+      document.getElementById("waterLevel").textContent = data.water.level;
+      document.getElementById("waterProgress").style.width = `${data.water.percentage}%`;
+      
+      document.getElementById("soil").textContent = data.soil.description;
+      document.getElementById("soilLevel").textContent = data.soil.level;
+      document.getElementById("soilProgress").style.width = `${data.soil.percentage}%`;
+      
+      document.getElementById("light").textContent = data.light.description;
+      document.getElementById("lightLevel").textContent = data.light.level;
+      document.getElementById("lightProgress").style.width = `${data.light.percentage}%`;
+      
+      // Update new features
+      document.getElementById("temperature").textContent = data.temperature;
+      document.getElementById("season").textContent = data.season;
+      document.getElementById("edible").textContent = data.edible;
+      document.getElementById("useCase").textContent = data.use_case;
+      document.getElementById("regions").textContent = data.regions;
+      document.getElementById("propagation").textContent = data.propagation;
+      
+      // Update care tips
+      const tipsContainer = document.getElementById("tips");
+      tipsContainer.innerHTML = "";
+      data.tips.forEach(tip => {
+        const tipElement = document.createElement("div");
+        tipElement.className = "tip-item";
+        tipElement.innerHTML = `
+          <i class="fas ${tip.icon} tip-icon"></i>
+          <span>${tip.text}</span>
+        `;
+        tipsContainer.appendChild(tipElement);
+      });
+      
+      // Update costs
+      document.getElementById("maintenance").textContent = data.costs.maintenance;
+      document.getElementById("fertilizer").textContent = data.costs.fertilizer;
+      document.getElementById("pesticide").textContent = data.costs.pesticide;
+      document.getElementById("life").textContent = data.costs.life;
+    }
+  </script>
+</body>
+</html>
